@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../config/auth');
-const photoController = require('../controllers/photoController');
+const photoController = require('../../controllers/photoController');
 
 // Rotas protegidas
 router.post('/photos', auth.authenticate, photoController.uploadPhoto);
