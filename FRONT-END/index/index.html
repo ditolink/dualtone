@@ -1,94 +1,189 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
-    <title>Meu Site de Fotografia</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Site de Fotografia</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<style>
+  /* Gradientes e cores */
+  .gradient-text {
+    background: linear-gradient(90deg, #7e5bef, #ff2d55);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  .gradient-bg {
+    background: linear-gradient(135deg, #7e5bef, #ff2d55);
+  }
+  /* Botões animados */
+  .btn-primary, .btn-secondary {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: linear-gradient(90deg, #7e5bef, #ff2d55);
+    color: white;
+  }
+  .btn-secondary {
+    background: #fff;
+    color: #7e5bef;
+    border: 2px solid #7e5bef;
+  }
+  .pulse-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+  /* WhatsApp flutuante */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+  }
+  /* Animações simples */
+  .fade-in { opacity: 0; animation: fadeIn 1s forwards; }
+  .slide-up { opacity: 0; transform: translateY(20px); animation: slideUp 1s forwards; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+  /* Portfolio cards */
+  .portfolio-card img, .portfolio-card video { width: 100%; height: 16rem; object-fit: cover; border-radius: 0.5rem; }
+</style>
 </head>
 <body class="font-sans bg-gray-900 text-gray-100">
-    
-    <!-- Seção Hero -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-black/60 z-0"></div>
-        <img src="images/hero-background.jpg" alt="Fotógrafo profissional trabalhando em estúdio" 
-             class="absolute inset-0 w-full h-full object-cover object-center z-0">
-        
-        <div class="container mx-auto px-4 z-10 text-center">
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-serif">
-                <span class="block">Capturando</span>
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-500">Momentos Eternos</span>
-            </h1>
-            
-            <div class="max-w-2xl mx-auto text-lg mb-8">
-                Transformando momentos especiais em memórias visuais que durarão para sempre
-            </div>
-            
-            <div class="space-x-4">
-                <a href="#portfolio" class="btn-primary">Ver Portfólio</a>
-                <a href="#contact" class="btn-secondary">Agendar Sessão</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Restante do conteúdo -->
-    <script src="js/main.js"></script>
-</body>
-</html>
-
-    <!-- WhatsApp Float -->
-    <a href="https://api.whatsapp.com/send?phone=SEUNUMERO&text=Olá,%20gostaria%20de%20falar%20sobre%20um%20orçamento" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Navigation -->
-    <nav class="gradient-bg text-white shadow-lg sticky top-0 z-50">
-        <!-- Conteúdo do menu -->
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center text-white">
-        <!-- Conteúdo hero -->
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 bg-white">
-        <!-- Conteúdo portfólio -->
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-100">
-        <!-- Conteúdo serviços -->
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
-        <!-- Conteúdo sobre -->
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-gray-100">
-        <!-- Depoimentos -->
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 gradient-bg text-white">
-        <!-- Formulário de contato -->
-    </section>
-
-    <!-- Admin Area -->
-    <div id="adminArea" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
-        <!-- Área administrativa -->
+<!-- Nav -->
+<nav class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center py-4 px-4">
+    <div class="text-2xl font-bold gradient-text">Urbana Pulse</div>
+    <div class="space-x-6">
+      <a href="#portfolio" class="hover:underline">Portfólio</a>
+      <a href="#services" class="hover:underline">Serviços</a>
+      <a href="#about" class="hover:underline">Sobre</a>
+      <a href="#contact" class="hover:underline">Contato</a>
     </div>
+  </div>
+</nav>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <!-- Rodapé -->
-    </footer>
+<!-- Hero -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 bg-black/60 z-0"></div>
+  <img src="images/hero-background.jpg" alt="Fotógrafo profissional trabalhando em estúdio" 
+       class="absolute inset-0 w-full h-full object-cover object-center z-0">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="js/main.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/contact-form.js"></script>
-</body>
-</html>
+  <div class="container mx-auto px-4 z-10 text-center space-y-6 fade-in">
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-serif gradient-text">
+      <span class="block">Capturando</span>
+      <span class="block text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-500">Momentos Eternos</span>
+    </h1>
+    <div class="max-w-2xl mx-auto text-lg mb-8 slide-up">
+      Transformando momentos especiais em memórias visuais que durarão para sempre
+    </div>
+    <div class="space-x-4">
+      <a href="#portfolio" class="btn-primary pulse-hover">Ver Portfólio</a>
+      <a href="#contact" class="btn-secondary pulse-hover">Agendar Sessão</a>
+    </div>
+  </div>
+</section>
+
+<!-- WhatsApp -->
+<a href="https://api.whatsapp.com/send?phone=55991779451" class="whatsapp-float" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Portfolio -->
+<section id="portfolio" class="py-20 bg-white">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Portfólio</h2>
+    <div class="flex justify-center gap-4 mb-8">
+      <button class="btn-secondary filter-btn" data-category="casamento">Casamento</button>
+      <button class="btn-secondary filter-btn" data-category="eventos">Eventos</button>
+      <button class="btn-secondary filter-btn" data-category="familia">Família</button>
+      <button class="btn-secondary filter-btn" data-category="todos">Todos</button>
+    </div>
+    <div id="portfolioContent" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="py-20 bg-gray-100">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Serviços</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded shadow hover:-translate-y-2 hover:shadow-lg transition transform fade-in">
+        <h3 class="text-xl font-bold mb-2">Fotografia de Casamento</h3>
+        <p>Captura os momentos mais especiais do seu grande dia.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow hover:-translate-y-2 hover:shadow-lg transition transform fade-in">
+        <h3 class="text-xl font-bold mb-2">Eventos e Festas</h3>
+        <p>Eventos corporativos, festas de aniversário e celebrações.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow hover:-translate-y-2 hover:shadow-lg transition transform fade-in">
+        <h3 class="text-xl font-bold mb-2">Família e Ensaios</h3>
+        <p>Momentos de família, newborn e ensaios personalizados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="py-20 bg-white text-center">
+  <h2 class="text-3xl font-bold mb-6 gradient-text">Sobre</h2>
+  <p class="max-w-3xl mx-auto slide-up">
+    Olá! Sou Sanmuel, fotógrafo apaixonado por capturar emoções e transformar momentos em memórias eternas.
+    Atendo [sua região] e busco sempre contar histórias únicas através das minhas lentes.
+  </p>
+  <div class="mt-6 flex justify-center space-x-4">
+    <a href="https://instagram.com/seuperfil" target="_blank" class="text-pink-500 hover:text-pink-700 font-bold">Instagram</a>
+    <span class="text-gray-400">📍 [Região]</span>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-20 gradient-bg text-white">
+  <div class="container mx-auto max-w-xl">
+    <h2 class="text-3xl font-bold mb-6 text-center gradient-text">Contato</h2>
+    <form id="contactForm" class="space-y-4">
+      <input type="text" name="nome" placeholder="Nome" class="w-full p-3 rounded" required>
+      <input type="email" name="email" placeholder="Email" class="w-full p-3 rounded" required>
+      <textarea name="mensagem" rows="4" placeholder="Mensagem" class="w-full p-3 rounded" required></textarea>
+      <button type="submit" class="btn-primary w-full pulse-hover">Enviar</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12 text-center gradient-text">
+  &copy; 2025 Dualtone. Todos os direitos reservados.
+</footer>
+
+<!-- Scripts -->
+<script>
+const contactForm = document.getElementById('contactForm');
+const WHATSAPP_NUMBER = "55991779451";
+const API_URL = "/api"; // já vai direto pro backend no Vercel
+
+
+contactForm.addEventListener('submit', function(e){
+  e.preventDefault
+}
+)
